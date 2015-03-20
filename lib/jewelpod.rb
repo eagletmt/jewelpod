@@ -1,5 +1,8 @@
-require "jewelpod/version"
+require 'jewelpod/config'
+require 'jewelpod/version'
 
 module Jewelpod
-  # Your code goes here...
+  def self.config
+    @config ||= Config.new
+  end
 end
