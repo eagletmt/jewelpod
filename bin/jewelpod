@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
+require 'optparse'
 require 'rack'
 require 'jewelpod/server'
+
+OptionParser.new.tap do |parser|
+  parser.on('--storage-url=URL') do |v|
+    Jewelpod.config.storage_url = v
+  end
+end.parse!(ARGV)
 
 Rack::Server.start(app: Jewelpod::Server)
