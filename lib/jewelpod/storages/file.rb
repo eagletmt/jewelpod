@@ -1,5 +1,6 @@
 require 'pathname'
 require 'rack/file'
+require 'rubygems/indexer'
 require 'tempfile'
 require 'jewelpod/storages/storage_base'
 
@@ -34,7 +35,7 @@ module Jewelpod
       end
 
       def create_index
-        # TODO
+        Gem::Indexer.new(@root).generate_index
       end
     end
   end

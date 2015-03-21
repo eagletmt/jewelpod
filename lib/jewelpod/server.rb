@@ -16,5 +16,9 @@ module Jewelpod
     end
   end
 end
+
+if defined?(Bundler)
+  Gem.post_reset do
+    Gem::Specification.all = nil
   end
 end
