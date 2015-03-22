@@ -20,7 +20,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+% jewelpod --storage-url file:///var/lib/jewelpod
+```
+
+```
+% AWS_ACCESS_KEY_ID=AKIAXXXXXXXX AWS_SECRET_ACCESS_KEY=YYYYYYY AWS_REGION=ap-northeast-1 jewelpod --storage-url s3://your.bucket.name/jewelpod
+```
+
+You can also run Jewelpod server as a Rack application.
+
+```
+% cat config.ru
+require 'jewelpod/server'
+
+Jewelpod.config.storage_url = 's3://your.bucket.name/jewelpod'
+run Jewelpod::Server
+% rackup -E production -p 3000
+```
 
 ## Development
 
