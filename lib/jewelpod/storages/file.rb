@@ -37,6 +37,16 @@ module Jewelpod
       def create_index
         Gem::Indexer.new(@root).generate_index
       end
+
+      def load_specs
+        @root.join("specs.#{Gem.marshal_version}").open { |f| Marshal.load(f) }
+      end
+
+      def load_spec(filename)
+        @root.join('quick', "Marshal.#{Gem.marshal_version}", "#{filename}.gemspec.rz").open do |f|
+          Marshal.load(Gem.inflate(f.read))
+        end
+      end
     end
   end
 end

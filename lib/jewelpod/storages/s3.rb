@@ -35,6 +35,26 @@ module Jewelpod
         create_index
       end
 
+      def load_specs
+        key = File.join(@path_prefix, "specs.#{Gem.marshal_version}.gz")
+        response = @s3.get_object(
+          bucket: @bucket,
+          key: key,
+        )
+        Zlib::GzipReader.wrap(response.body) do |gz|
+          Marshal.load(gz)
+        end
+      end
+
+      def load_spec(filename)
+        key = File.join(@path_prefix, 'quick', "Marshal.#{Gem.marshal_version}", "#{filename}.gemspec.rz")
+        response = @s3.get_object(
+          bucket: @bucket,
+          key: key,
+        )
+        Marshal.load(Gem.inflate(response.body.read))
+      end
+
       def create_index
         Dir.mktmpdir('jewelpod') do |root|
           root = Pathname.new(root)
